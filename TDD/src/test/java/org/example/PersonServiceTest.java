@@ -7,15 +7,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonServiceTest {
 
+  IPersonService serivce;
   Person person;
 
   @BeforeEach
   void setUp() {
+    serivce = new PersonService();
     person = new Person("Keith", "Moon", "teste@test.com", "Salvador-BA", "Male");
   }
 
@@ -25,7 +26,7 @@ public class PersonServiceTest {
   void testCreatePerson_WhenSuccess_ShouldContainsValidFieldsInReturnedPersonObject() {
 
     // Given / Arrange
-    IPersonService serivce = new PersonService();
+
     // When / Act
     Person actual = serivce.createPerson(person);
 
@@ -37,5 +38,20 @@ public class PersonServiceTest {
     assertEquals(person.getEmail(), actual.getEmail(), "The Email is Incorrect!");
     assertEquals(person.getAddress(), actual.getAddress(), "The Address is Incorrect!");
     assertEquals(person.getGender(), actual.getGender(), "The Gender is Incorrect!");
+  }
+
+  // test[System Under Test]_[Condition or State Change]_[Expected Result],
+  @DisplayName("When Create a Person with null e-mail Should throw Exception")
+  @Test
+  void testCreatePerson_WhitNullEmail_ShouldThrowIllegalArgumentException() {
+    // Given / Arrange
+    person.setEmail(null);
+    String expectedMessage = "The Person email is null ou empty!";
+
+    // When / Act & Then / Assert
+    var msg = assertThrows(IllegalArgumentException.class, () -> serivce.createPerson(person), "Empty e-Mail should have cause an IllegalArgumentException");
+
+    // Then / Assert
+    assertEquals(expectedMessage, msg.getMessage(), "The Exception Message is Incorrect!");
   }
 }
