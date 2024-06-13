@@ -4,7 +4,6 @@ import org.example.service.CourseService;
 import org.example.stubs.CourseServiceStub;
 import org.junit.jupiter.api.Test;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CourseBusinessStubTest {

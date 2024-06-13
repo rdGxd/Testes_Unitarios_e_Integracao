@@ -100,7 +100,6 @@ public class CourseBusinessMockWithBDDTest {
             "REST API's RESTFul do 0 à AWS com Spring Boot 3 Java e Docker"
     );
      */
-
     given(mockService.retrieveCourses("Rodrigo")).willReturn(courses);
 
     ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(String.class);
